@@ -7,19 +7,26 @@ def selection_sort(arr):
         # TO-DO: find next smallest element
         # (hint, can do in 3 loc)
         # Your code here
-
-
+        for el in range(cur_index, len(arr)):
+            # Compare each element to its neighbor
+            if arr[el] < arr[smallest_index]: # If elements in wrong position (relative to each other, swap them)
+                smallest_index = el
         # TO-DO: swap
         # Your code here
-
+        arr[smallest_index], arr[cur_index] = arr[cur_index], arr[smallest_index]
     return arr
 
 
 # TO-DO:  implement the Bubble Sort function below
 def bubble_sort(arr):
     # Your code here
-
-
+    have_swapped = True
+    while have_swapped:
+        have_swapped = False
+        for i in range(0, len(arr) - 1):
+            if arr[i] > arr[i+1]:
+                arr[i], arr[i+1] = arr[i+1], arr[i]
+                have_swapped = True
     return arr
 
 '''
@@ -37,10 +44,27 @@ Once we know exactly how many times each piece of data in the input set
 showed up, we can construct a sorted set of the input data from the 
 buckets. 
 
-What is the time and space complexity of the counting sort algorithm?
+What is the time and space complexity of the counting sort algorithm? O(n)
 '''
-def counting_sort(arr, maximum=None):
+def count_sort(arr, maximum=-1):
     # Your code here
+    if len(arr) == 0:
+        return arr
+    if maximum == -1:
+        maximum = max(arr)
 
+    counts = [0] * (maximum + 1)
+    for value in arr:
+        if value < 0:
+            return "Error, negative numbers not allowed in Count Sort"
+        counts[value] += 1
+    
+    j=0
+
+    for i in range(0, len(counts)):
+        while counts[i] > 0:
+            arr[j] = i
+            j+= 1
+            counts[i] -= 1
 
     return arr
